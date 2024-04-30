@@ -1,0 +1,44 @@
+BIBLIOTECAS DE PYTHON!!!
+
+INSTALACIÓN SDL2
+sudo apt update
+sudo apt upgrade
+sudo apt install libsdl2-dev
+sudo pip install pysdl2
+sudo pip install pysdl2=version
+
+INSTALACIÓN PIP
+sudo apt update
+sudo apt install python3-pip
+pip
+pip -V
+pip - package/module for python
+
+BILBIOTECAS NECESARIAS PYTHON
+sudo pip install numpy scipy
+sudo pip install playsound
+sudo pip install imutils
+sudo pip install numpy numpy-extensions
+sudo pip install opencv-contrib-python
+sudo pip install pynput
+sudo pip install matplotlib[all]
+sudo pip install ipykernel
+
+
+ADICIONALES:
+pip install pyautogui 
+pip install keyboard 
+pip install mouse
+
+
+EN UN SOLO COMANDO:
+pip install numpy numpy-extensions opencv-contrib-python pynput matplotlib[all]
+CON ADICIONALES
+pip install numpy numpy-extensions opencv-contrib-python pynput matplotlib[all] pyautogui keyboard mouse
+
+sudo apt install libwayland-dev
+export QT_QPA_PLATFORM_PLUGIN_PATH=/ruta/a/tu/directorio/plugins/qt
+
+INSTALACIÓN DROID CAM
+https://www.dev47apps.com/droidcam/linux/
+https://www.reddit.com/r/pop_os/comments/wctjo4/droidcam_v4l2loopback_device_not_foun_devvideo09/?rdt=46456&onetap_auto=true&one_tap=true
