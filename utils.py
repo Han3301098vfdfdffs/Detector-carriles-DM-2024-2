@@ -2,6 +2,9 @@ import numpy as np
 import cv2
 import pickle
 
+limpos = 30
+limneg = -30
+
 def nothing(x): #No hacer nada, pasa por alto cualquier calculo u operación
     pass
 
@@ -288,15 +291,15 @@ def textDisplay(curve,img):
     font = cv2.FONT_HERSHEY_SIMPLEX #Define el tipo de fuente para el texto que se va a mostrar en la imagen.
     #cv2.putText(img, str(curve), ((img.shape[1]//2)-30, 40), font, 1, (255, 255, 0), 2, cv2.LINE_AA) #Agrega texto a la imagen img que representa el valor de curve
     directionText=' No lane '#Inicializa la variable directionText con el texto predeterminado ' No lane '.
-    if curve > 60:
+    if curve > limpos:
         directionText='Right'#Si es verdadero, establece directionText como 'Right' (Derecha).
         #print("derecha")
         cv2.putText(img, "derecha", pos_derecha, font, 1, color_derecha, 2, cv2.LINE_AA)
-    elif curve < -60:
+    elif curve < limneg:
         directionText='Left'#Si es verdadero, establece directionText como 'Left' (Izquierda).
         #print("izquierda")
         cv2.putText(img, "izquierda", pos_izquierda, font, 1, color_izquierda, 2, cv2.LINE_AA)
-    elif curve <60 and curve > -60:
+    elif curve <limpos and curve > -limneg:
         directionText='Straight'#Si es verdadero, establece directionText como 'Straight' (Recto).
         #print("recto")
         cv2.putText(img, "recto", pos_recto, font, 1, color_recto, 2, cv2.LINE_AA)
@@ -305,6 +308,21 @@ def textDisplay(curve,img):
         print("no se encontro carril")
     #cv2.putText(img, directionText, ((img.shape[1]//2)-35,(img.shape[0])-20 ), font, 1, (0, 200, 200), 2, cv2.LINE_AA)#Agrega el texto directionText a la imagen 
     #No es necesario un return, la imagen se modifica directamente
+
+def mapeo(curve, centro, limright, limleft):
+    if curve > limpos:
+        direccion = centro + (curve - limpos) * (limright - centro) / (180 - centro)  # Mapea a un valor entre 90 y 180
+        direccion = min(direccion, limright)  # Asegura que no sobrepase limright
+        direccion = max(direccion, 0)  # Asegura que no sea menor que 0
+    elif curve < limneg:
+        direccion = centro + (curve + limpos) * (limleft - centro) / (-180 + centro)  # Mapea a un valor entre 90 y 0
+        direccion = max(direccion, limleft)  # Asegura que no sea menor que limleft
+        direccion = min(direccion, 180)  # Asegura que no sobrepase 180
+    else:
+        direccion = 90  # Valor por defecto si curve está entre -60 y 60
+    return direccion
+
+
 
 def stackImages(scale,imgArray):
     rows = len(imgArray) # Obtiene el número de filas en imgArray
